@@ -1,100 +1,106 @@
-# Welcome to React Router!
+# 📚 Comics App 🚀
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+A one-stop platform designed for comic book readers and collectors. Whether you are a casual reader, a seasoned collector, or someone looking to trade and connect with the comic book community, we've got you covered! 💥
 
 ---
 
-Built with ❤️ using React Router.
+## 🎯 **Objective:**
+
+There is currently no service curated specifically for comic book readers and collectors to:
+
+- 📋 **Manage their collection**
+- 🔄 **Trade with other collectors**
+- 💸 **Track market prices & seller trends**
+- 📢 **Get group discounts**
+
+We aim to fill this gap by delivering a **comprehensive inventory and community experience** for comic book lovers.
+
+---
+
+## 🧩 **Comic Book Anatomy:**
+
+**🧪 Atoms:** Single Issues (20-25 pages, like book chapters)
+
+### 📖 **Story Structures:**
+
+```mermaid
+graph LR
+A[Single Issues] --> B[Story Arc]
+B --> C[Collected Edition]
+```
+
+#### 📚 Collected Edition Types:
+
+- **Paperback:** 6-8 issues
+- **Hardcover Deluxe:** 6-10 issues
+- **Omnibus:** Hardcover (600-1200 pages)
+- **Compendium:** Softcover (500-1000 pages)
+
+### 🎭 **Story Breakdown:**
+
+- **Events:** Cross-title collections (e.g., DC Comics - New 52, Rebirth)
+- **Runs:** Author-specific series (e.g., Tom King’s Batman)
+- **Miniseries / One-shots:** Self-contained stories
+
+### 🎨 **Special Elements:**
+
+- **Variant Covers:** Unique cover art for the same issue
+- **Crossovers:** Story arcs that span across multiple titles
+- **Digital Formats:** CBR/CBZ file extensions for digital comics
+
+---
+
+## ✨ **Features:**
+
+### 📋 **Collection & Inventory Management:**
+
+- Categorize by **format:** Single Issues, Deluxe, Omnibus, etc.
+- List comics by **writers, events, and chronology**
+
+### 📊 **Track & Organize Your Reads:**
+
+- 📖 **Reading Status:** Read / Reading / To-Read
+- 📚 **Collection Status:** Collected / Want to Buy / Not Interested (Format-specific)
+
+### 🛒 **Wishlist & Price Tracking:**
+
+- Automatically populate your **Wishlist** with "Want to Buy" books
+- Track **last purchase price** and **general market prices**
+
+### 🔍 **Powerful Search Bar:**
+
+Search any field—title, writer, event, format, or status—and easily navigate deeper!
+
+### 📈 **Rank & Rate:**
+
+- **Run-Level Ranking:** Rate comic runs
+- Add **Bookmarks** for reading
+- Track **prices on owned editions**
+
+### 📥 **CBR Download Shortcut:**
+
+- Direct link to **GetComics** for free CBR downloads
+
+---
+
+## 🛠️ **How to Use:**
+
+1️⃣ Clone this repository  
+2️⃣ Run the setup command  
+3️⃣ Enjoy managing your comic collection like never before 🎉
+
+---
+
+## 💡 **Coming Soon:**
+
+- Community trading platform ⚡
+- Personalized recommendations 🤓
+- AI-powered price analysis 📊
+
+---
+
+## ❤️ **Join the Community:**
+
+We would love your contributions, ideas, and feedback! Let's build the ultimate Comics App together.
+
+🔗 Check it out and star ⭐ the repo if you love comics as much as we do! 🎉
