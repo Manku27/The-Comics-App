@@ -41,7 +41,7 @@ export const RunView = ({ run }: RunViewProps) => {
             </div>
           </div>
 
-          <div className="relative overflow-hidden h-[calc(100vh-240px)]">
+          <div className="relative">
             <AnimatePresence mode="wait">
               <List
                 key={selectedEditionIndex}
