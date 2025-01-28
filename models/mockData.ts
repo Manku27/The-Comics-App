@@ -1,4 +1,5 @@
 import type { IListItem, IRun, IRunList } from './books';
+import type { IHomeListItem } from './runs';
 
 export const listSample: IListItem[] = [
     {
@@ -114,3 +115,18 @@ export const sampleRunList: IRunList = {
         },
     ]
 };
+
+
+export const comicRuns : IHomeListItem[] = [
+    { rank: 1, title: "Fantastic Four", creators: "Jack Kirby and Stan Lee" },
+    { rank: 2, title: "Sandman", creators: "Neil Gaiman" },
+    { rank: 3, title: "Daredevil", creators: "Frank Miller and Klaus Janson" },
+    { rank: 4, title: "Batman", creators: "Grant Morrison" },
+    { rank: 5, title: "X-Men", creators: "John Byrne, Chris Claremont, and Terry Austin" },
+    { rank: 6, title: "Watchmen", creators: "Alan Moore and Dave Gibbons" },
+    { rank: 7, title: "X-Men", creators: "Chris Claremont and John Byrne" },
+    { rank: 8, title: "Thor", creators: "Walt Simonson" },
+    { rank: 9, title: "Batman: The Dark Knight Returns", creators: "Frank Miller" },
+    { rank: 10, title: "Swamp Thing", creators: "Alan Moore" },
+  ];
+  
