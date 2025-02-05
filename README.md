@@ -66,26 +66,6 @@ Comic books come in various formats, structures, and collections. Below is a bre
 
 ---
 
-## 💻 Installation
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/comics-app.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd comics-app
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Run the app:
-   ```bash
-   npm start
-   ```
-
----
-
 ## 🛡️ License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
