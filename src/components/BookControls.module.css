@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 3px solid #fff;
+  background-color: #000;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select {
+  width: 160px;
+  padding: 0.75rem;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select:hover {
+  background-color: #1a1a1a;
+}
+
+.select option {
+  background-color: #000;
+  color: #fff;
+}
+
+.clearButton {
+  padding: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.clearIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ff0000;
+  transition: transform 0.2s ease;
+}
+
+.clearButton:hover .clearIcon {
+  transform: rotate(90deg);
+}
+
+.ratingContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.starButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.starButton.active {
+  color: #ff0000;
+}
+
+.starButton:hover {
+  transform: scale(1.2);
+}
+
+.input {
+  width: 160px;
+  padding: 0.75rem;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #ff0000;
+} 

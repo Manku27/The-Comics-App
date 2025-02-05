@@ -1,0 +1,48 @@
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 4px solid #fff;
+  margin-bottom: 2rem;
+}
+
+.button {
+  padding: 1rem 2rem;
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #ff0000;
+  transform: translateY(-2px);
+}
+
+.button.selected {
+  background: #ff0000;
+  transform: translateY(2px);
+}
+
+.listContainer {
+  position: relative;
+}
+
+.editionContent {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
