@@ -1,7 +1,7 @@
 import pool from "@/db";
 import { IRun } from "@/models/books";
 
-export const runQuery = async (runId: string) => {
+export const runQuery = async (runId: number) => {
     const runInfo = await pool.query(
         `
        SELECT 
