@@ -1,19 +1,19 @@
-import type { IListItem, IRun, IRunList } from "./books";
-import type { IHomeListItem } from "./runs";
+import type { IBook, IRun } from "./books";
+import type { IHomeListItem, IRunList } from "./runs";
 
-export const listSample: IListItem[] = [
+export const listSample: IBook[] = [
     {
         title: "ABC",
         description:
             "In this gripping collection, you will find a series of thrilling adventures that will keep you on the edge of your seat. Each story is crafted with care and attention to detail, ensuring that you are fully immersed in the world of the characters. From heart-pounding action scenes to emotional moments that will tug at your heartstrings, this collection has it all. Whether you are a fan of mystery, romance, or fantasy, there is something here for everyone. So sit back, relax, and get ready to be transported to a world of excitement and wonder.",
-        author: [{
+        authors: [{
             id: 1,
             name: "John Doe",
         }, {
             id: 2,
             name: "John2 Doe2",
         }],
-        illustrator: [{
+        illustrators: [{
             id: 1,
             name: "John Doe",
         }, {
@@ -30,27 +30,28 @@ export const listSample: IListItem[] = [
         latestRepublished: "2020-01-01",
         pageCount: 200,
         id: 1,
-        imageUrl:
+        image:
             "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1476883970i/31224156._SY180_.jpg",
     },
     {
         title: "XYZ",
         description:
             "A captivating collection of stories that will take you on a journey through different worlds and experiences. Each tale is unique and offers a fresh perspective on life, love, and adventure. With a mix of genres and styles, this collection is perfect for readers who enjoy variety and excitement.",
-        author: [{
+        authors: [{
             id: 1,
             name: "John Doe",
         }, {
             id: 2,
             name: "John2 Doe2",
         }],
-        illustrator: [{
+        illustrators: [{
             id: 1,
             name: "John Doe",
         }, {
             id: 2,
             name: "John2 Doe2",
         }],
+
         rating: 4.2,
         noOfRatings: 850,
         collects: [{ title: "Adventure", issues: "1-5" }, {
@@ -59,7 +60,7 @@ export const listSample: IListItem[] = [
         }],
         published: "2019-05-15",
         latestRepublished: "2019-05-15",
-        imageUrl:
+        image:
             "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1476883970i/31224156._SY180_.jpg",
         pageCount: 240,
         id: 2,
@@ -68,14 +69,14 @@ export const listSample: IListItem[] = [
         title: "LMN",
         description:
             "Dive into a world of imagination with this collection of stories that will leave you spellbound. Each story is a masterpiece, crafted with precision and creativity. From fantastical realms to real-life scenarios, this collection has something for everyone. Get ready to be amazed and inspired.",
-        author: [{
+        authors: [{
             id: 1,
             name: "John Doe",
         }, {
             id: 2,
             name: "John2 Doe2",
         }],
-        illustrator: [{
+        illustrators: [{
             id: 1,
             name: "John Doe",
         }, {
@@ -90,11 +91,11 @@ export const listSample: IListItem[] = [
         }],
         published: "2021-07-20",
         latestRepublished: "2021-07-20",
-        imageUrl:
+        image:
             "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1476883970i/31224156._SY180_.jpg",
         pageCount: 200,
         id: 3,
-        averagePrice: 1100,
+        medianPrice: 1100,
     },
 ];
 
@@ -105,9 +106,11 @@ export const sampleRun: IRun = {
         "Nightwing is a fictional superhero appearing in American comic books published by DC Comics. The character has appeared in various incarnations, with the Nightwing identity most prominently",
     editions: [{
         type: "Omnibus",
+        coverType: "Hardcover",
         list: listSample,
     }, {
         type: "Paperback",
+        coverType: "Paperback",
         list: listSample,
     }],
 };

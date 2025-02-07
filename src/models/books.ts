@@ -1,54 +1,39 @@
-export interface IListItem {
-    id:number;
+export interface IBook {
+    id: number;
     title: string;
     description: string;
-    author: IPeople[];
-    illustrator: IPeople[];
+    pageCount: number;
+    published: string;
+    latestRepublished?: string;
+    image: string;
+    authors: IPeople[];
+    illustrators: IPeople[];
     rating: number;
     noOfRatings: number;
     collects: ICollect[];
-    published: string;
-    latestRepublished: string;
-    imageUrl: string;
-    pageCount : number;
-    averagePrice?: number;
+    medianPrice?: number;
 }
 
 interface IPeople {
-    id : number;
-    name : string;
+    id: number;
+    name: string;
 }
 
-interface ICollect {
-    title : string;
-    issues : string;
-}
-
-export interface IList {
-    list: IListItem[];
+export interface ICollect {
+    title: string;
+    issues: string;
 }
 
 export interface IEdition {
     type: string;
-    list: IListItem[];
+    coverType: string;
+    list: IBook[];
 }
 
 export interface IRun {
     name: string;
-    year: number;
-    description : string;
+    year?: number;
+    description?: string;
     editions: IEdition[];
-}
-
-export interface IRunListItem {
-    id: number;
-    name: string;
-    year: string;
-    collects: string;
-    period: string;
-}
-
-export interface IRunList {
-    name: string;
-    list: IRunListItem[];
+    collects: ICollect[];
 }
