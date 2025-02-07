@@ -1,10 +1,10 @@
-import { IListItem } from "@/models/books";
+import { IBook } from "@/models/books";
 import { BookControls } from "./BookControls";
 import Image from "next/image";
 import styles from "./ListItem.module.css";
 
 interface Props {
-  listItem: IListItem;
+  listItem: IBook;
 }
 
 export const ListItem = ({ listItem }: Props) => {
@@ -14,7 +14,7 @@ export const ListItem = ({ listItem }: Props) => {
         <div className={styles.bookNumber}>BOOK #{listItem.id}</div>
         <div className={styles.imageWrapper}>
           <Image
-            src={listItem.imageUrl}
+            src={`/DD/${listItem.image}`}
             alt={listItem.title}
             fill
             className={styles.image}
@@ -29,11 +29,11 @@ export const ListItem = ({ listItem }: Props) => {
 
         <div className={styles.creators}>
           <span>
-            BY: {listItem.author.map((author) => author.name).join(", ")}
+            BY: {listItem.authors.map((author) => author.name).join(", ")}
           </span>
           <span>
             ART:{" "}
-            {listItem.illustrator
+            {listItem.illustrators
               .map((illustrator) => illustrator.name)
               .join(", ")}
           </span>
@@ -72,9 +72,9 @@ export const ListItem = ({ listItem }: Props) => {
           <div>
             <span>PAGES:</span> {listItem.pageCount}
           </div>
-          {listItem.averagePrice && (
+          {listItem.medianPrice && (
             <div>
-              <span>PRICE:</span> ₹{listItem.averagePrice.toFixed(2)}
+              <span>PRICE:</span> ₹{listItem.medianPrice.toFixed(2)}
             </div>
           )}
         </div>

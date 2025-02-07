@@ -1,11 +1,11 @@
 "use client";
 
 import { ListItem } from "./ListItem";
-import { IListItem } from "@/models/books";
+import { IBook } from "@/models/books";
 import styles from "./List.module.css";
 
 interface ListProps {
-  items: IListItem[];
+  items: IBook[];
 }
 
 const List = ({ items }: ListProps) => {

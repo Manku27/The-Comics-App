@@ -8,12 +8,12 @@
 .content {
   max-width: 1400px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
   gap: 2rem;
 }
 
 .mainContent {
+  flex: 2;
   border: 4px solid #fff;
   padding: 2rem;
 }
@@ -95,4 +95,36 @@
   font-size: 1.1rem;
   line-height: 1.6;
   font-family: monospace;
+}
+
+.collects {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.collectsList {
+    display: flex;
+    gap: 8px;
+}
+
+.collectItem {
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.collectItem:hover {
+    background-color: #555;
+}
+
+.sidebarContainer {
+  flex: 1;
+}
+
+.fullWidthEditionSelector {
+  width: 100%;
+  margin-top: 20px;
 } 

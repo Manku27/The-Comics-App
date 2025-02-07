@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { comicRuns } from "../models/mockData";
 import styles from "./HomeScreen.module.css";
+import { IHomeListItem } from "@/models/runs";
 
-const HomeScreen = () => {
+const HomeScreen = ({ comicRuns }: { comicRuns: IHomeListItem[] }) => {
   return (
     <main className={styles.container}>
       <div className={styles.header}>

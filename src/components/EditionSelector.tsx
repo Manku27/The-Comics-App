@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import List from "./List";
-import { IEdition } from "@/models/books";
+import { IEdition, IBook } from "@/models/books";
 import styles from "./EditionSelector.module.css";
 
 interface EditionSelectorProps {
@@ -15,7 +15,7 @@ export const EditionSelector = ({ editions }: EditionSelectorProps) => {
   return (
     <>
       <div className={styles.buttonContainer}>
-        {editions.map((edition, index) => (
+        {editions.map((edition: IEdition, index: number) => (
           <button
             key={index}
             onClick={() => setSelectedEditionIndex(index)}
@@ -30,7 +30,7 @@ export const EditionSelector = ({ editions }: EditionSelectorProps) => {
 
       <div className={styles.listContainer}>
         <div key={selectedEditionIndex} className={styles.editionContent}>
-          <List items={editions[selectedEditionIndex].list} />
+          <List items={editions[selectedEditionIndex].list as IBook[]} />
         </div>
       </div>
     </>
