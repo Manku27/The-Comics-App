@@ -72,11 +72,15 @@ export const ListItem = ({ listItem }: Props) => {
           <div>
             <span>PAGES:</span> {listItem.pageCount}
           </div>
-          {listItem.medianPrice && (
+          <div>
+            <span>ISBN:</span> {listItem.isbn}
+          </div>
+
+          {listItem.medianPrice && listItem.medianPrice > 0 ? (
             <div>
               <span>PRICE:</span> ₹{listItem.medianPrice.toFixed(2)}
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

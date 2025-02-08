@@ -2,8 +2,8 @@ import pool from "@/db";
 import { IRun } from "@/models/books";
 
 export const runQuery = async (runId: number) => {
-    const runInfo = await pool.query(
-        `
+  const runInfo = await pool.query(
+    `
        SELECT 
             r.name,
             json_agg(json_build_object('title', rc.title, 'issues', rc.issues)) AS collects
@@ -16,11 +16,11 @@ export const runQuery = async (runId: number) => {
         GROUP BY 
             r.id;
         `,
-        [runId],
-    );
+    [runId],
+  );
 
-    const runEditions = await pool.query(
-        `
+  const runEditions = await pool.query(
+    `
     SELECT 
     e.type,
     e.cover_type as coverType,
@@ -33,6 +33,7 @@ export const runQuery = async (runId: number) => {
         'published', b.published_date,
         'latestRepublished', b.latest_republish_date,
         'image', b.image,
+        'isbn', b.isbn13,
        'authors', (
           SELECT json_agg(json_build_object('id', p.id, 'name', p.name))
           FROM books.book_authors ba
@@ -63,13 +64,13 @@ export const runQuery = async (runId: number) => {
   WHERE re.run_id = $1
   GROUP BY e.id, e.type;
         `,
-        [runId],
-    );
+    [runId],
+  );
 
-    const response: IRun = {
-        ...runInfo.rows[0],
-        editions: runEditions.rows,
-    };
+  const response: IRun = {
+    ...runInfo.rows[0],
+    editions: runEditions.rows,
+  };
 
-    return response;
+  return response;
 };
