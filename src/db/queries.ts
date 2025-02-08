@@ -1,5 +1,6 @@
 import pool from "@/db";
 import { IRun } from "@/models/books";
+import { IBookInput } from "@/models/input";
 
 export const runQuery = async (runId: number) => {
   const runInfo = await pool.query(
@@ -72,4 +73,96 @@ export const runQuery = async (runId: number) => {
   };
 
   return response;
+};
+
+export const addBookQuery = async (book: IBookInput) => {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    // Insert book and get new book ID
+    const bookInsert = await client.query(
+      `
+        INSERT INTO books.books (title, description, page_count, published_date, latest_republish_date, isbn13)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING id;
+      `,
+      [
+        book.title,
+        book.description,
+        book.pageCount,
+        book.published,
+        book.latestRepublished,
+        book.isbn,
+      ],
+    );
+    const newBookId = bookInsert.rows[0].id;
+
+    // Authors insertion
+    if (book.authors.length > 0) {
+      const authorsValues = book.authors
+        .map((authorId) => `(${newBookId}, ${authorId})`)
+        .join(", ");
+      const authorsQueryText = `
+        INSERT INTO books.book_authors (book_id, author_id)
+        VALUES ${authorsValues};
+      `;
+      await client.query(authorsQueryText);
+    }
+
+    // Illustrators insertion
+    if (book.illustrators.length > 0) {
+      const illustratorsValues = book.illustrators
+        .map((illustratorId) => `(${newBookId}, ${illustratorId})`)
+        .join(", ");
+      const illustratorsQueryText = `
+        INSERT INTO books.book_illustrators (book_id, illustrator_id)
+        VALUES ${illustratorsValues};
+      `;
+      await client.query(illustratorsQueryText);
+    }
+
+    // Stats insertion
+    await client.query(
+      `
+        INSERT INTO books.book_stats (book_id)
+        VALUES ($1)
+      `,
+      [newBookId],
+    );
+
+    // Collections insertion
+    if (book.collects.length > 0) {
+      const collectionsValues = book.collects
+        .map(({ title, issues }) => `(${newBookId}, '${title}', '${issues}')`)
+        .join(", ");
+      const collectionsQueryText = `
+        INSERT INTO books.book_collections (book_id, title, issues)
+        VALUES ${collectionsValues};
+      `;
+      await client.query(collectionsQueryText);
+    }
+
+    await client.query("COMMIT");
+    console.log("Transaction completed successfully.");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error("Transaction failed, rolling back:", error);
+  } finally {
+    client.release();
+  }
+};
+
+export const addPeopleQuery = async (people: string) => {
+  const peopleInsert = await pool.query(
+    `
+    INSERT INTO books.people (name)
+    VALUES ($1)
+    RETURNING id;
+    `,
+    [people],
+  );
+
+  return peopleInsert.rows[0].id;
 };
