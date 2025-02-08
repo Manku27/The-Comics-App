@@ -48,55 +48,6 @@
   font-family: monospace;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.panel {
-  border: 4px solid #fff;
-  padding: 1.5rem;
-}
-
-.panelTitle {
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-}
-
-.runList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.runItem {
-  background-color: #1a1a1a;
-  padding: 0.75rem 1rem;
-  font-family: monospace;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.runItem:hover {
-  background-color: #ff0000;
-}
-
-.extraLinks {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  font-family: monospace;
-}
-
 .collects {
     display: flex;
     flex-wrap: wrap;
@@ -119,12 +70,3 @@
 .collectItem:hover {
     background-color: #555;
 }
-
-.sidebarContainer {
-  flex: 1;
-}
-
-.fullWidthEditionSelector {
-  width: 100%;
-  margin-top: 20px;
-} 

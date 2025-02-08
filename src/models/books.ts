@@ -5,7 +5,6 @@ export interface IBook {
     pageCount: number;
     published: string;
     latestRepublished?: string;
-    image: string;
     authors: IPeople[];
     illustrators: IPeople[];
     rating: number;

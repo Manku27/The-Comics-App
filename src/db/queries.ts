@@ -32,7 +32,6 @@ export const runQuery = async (runId: number) => {
         'pageCount', b.page_count,
         'published', b.published_date,
         'latestRepublished', b.latest_republish_date,
-        'image', b.image,
         'isbn', b.isbn13,
        'authors', (
           SELECT json_agg(json_build_object('id', p.id, 'name', p.name))

@@ -49,7 +49,6 @@ export const BookControls = ({
           value={readStatus}
           onChange={(e) => setReadStatus(e.target.value)}
         >
-          <option value="">READ STATUS</option>
           {READ_STATUS.map((status) => (
             <option key={status} value={status}>
               {status.toUpperCase()}
@@ -88,7 +87,6 @@ export const BookControls = ({
           value={collectionStatus}
           onChange={(e) => setCollectionStatus(e.target.value)}
         >
-          <option value="">COLLECTION</option>
           {COLLECTION_STATUS.map((status) => (
             <option key={status} value={status}>
               {status.toUpperCase()}

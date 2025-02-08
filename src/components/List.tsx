@@ -1,5 +1,3 @@
-"use client";
-
 import { ListItem } from "./ListItem";
 import { IBook } from "@/models/books";
 import styles from "./List.module.css";
