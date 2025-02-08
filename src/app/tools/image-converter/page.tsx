@@ -48,9 +48,8 @@ export default function ImageConverter() {
         Array.from(images).map((file) => convertImage(file))
       );
       setCompressedImages(compressedFiles);
-      console.log("Images compressed successfully");
     } catch (error) {
-      console.error("Error compressing images:", error);
+      console.error(error);
     } finally {
       setIsCompressing(false);
     }
@@ -65,6 +64,10 @@ export default function ImageConverter() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url); // Clean up the URL object
+  };
+
+  const handleDownloadAllImages = () => {
+    compressedImages.forEach((image) => downloadImage(image));
   };
 
   return (
@@ -95,6 +98,15 @@ export default function ImageConverter() {
               </div>
             ))}
           </div>
+          <div className="flex flex-col gap-4">
+            <button
+              onClick={handleCompressImages}
+              disabled={images.length === 0 || isCompressing}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md my-5"
+            >
+              {isCompressing ? "Compressing..." : "Compress Images"}
+            </button>
+          </div>
           <div className="flex  flex-wrap gap-4">
             {compressedImages.map((compressedImage, index) => (
               <div key={index} className="mb-4">
@@ -108,22 +120,17 @@ export default function ImageConverter() {
                 <p className="text-sm text-gray-500">
                   Size: {compressedImage.size.toFixed(2)} bytes
                 </p>
-                <button
-                  onClick={() => downloadImage(compressedImage)}
-                  className="bg-green-500 text-white px-4 py-2 rounded-md"
-                >
-                  Download {compressedImage.name}
-                </button>
               </div>
             ))}
           </div>
         </div>
+
         <button
-          onClick={handleCompressImages}
+          onClick={handleDownloadAllImages}
           disabled={images.length === 0 || isCompressing}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          className="bg-blue-500 text-white m-5 px-4 py-2 rounded-md"
         >
-          {isCompressing ? "Compressing..." : "Compress Images"}
+          Download All
         </button>
       </div>
     </div>
