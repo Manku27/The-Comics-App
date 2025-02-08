@@ -26,7 +26,7 @@ export interface ICollect {
 
 export interface IEdition {
     type: string;
-    coverType: string;
+    covertype: string;
     list: IBook[];
 }
 

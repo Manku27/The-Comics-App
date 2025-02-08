@@ -11,7 +11,6 @@ interface EditionSelectorProps {
 
 export const EditionSelector = ({ editions }: EditionSelectorProps) => {
   const [selectedEditionIndex, setSelectedEditionIndex] = useState(0);
-
   return (
     <>
       <div className={styles.buttonContainer}>
@@ -23,7 +22,8 @@ export const EditionSelector = ({ editions }: EditionSelectorProps) => {
               selectedEditionIndex === index ? styles.selected : ""
             }`}
           >
-            {edition.type.toUpperCase()}
+            {edition.type.toUpperCase()}{" "}
+            {edition.covertype === "Hardcover" ? "(HARD)" : null}
           </button>
         ))}
       </div>
