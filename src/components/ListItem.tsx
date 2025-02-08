@@ -60,7 +60,9 @@ export const ListItem = ({ listItem }: Props) => {
           </div>
         )}
 
-        <p className={styles.description}>{listItem.description}</p>
+        {listItem.description && listItem.description.length > 0 && (
+          <p className={styles.description}>{listItem.description}</p>
+        )}
 
         <div className={styles.details}>
           <div>

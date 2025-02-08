@@ -1,7 +1,7 @@
 export interface IBook {
     id: number;
     title: string;
-    description: string;
+    description?: string;
     pageCount: number;
     published: string;
     latestRepublished?: string;
