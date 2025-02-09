@@ -3,25 +3,29 @@ import { IRun } from "@/models/books";
 import { IBookInput } from "@/models/input";
 
 export const runQuery = async (runId: number) => {
-  const runInfo = await pool.query(
-    `
+  const client = await pool.connect();
+
+  try {
+    const runInfo = await client.query(
+      `
        SELECT 
+
             r.name,
             json_agg(json_build_object('title', rc.title, 'issues', rc.issues)) AS collects
         FROM 
-            books.runs r 
+            runs r 
         LEFT JOIN 
-            books.run_collections rc ON rc.run_id = r.id
+            run_collections rc ON rc.run_id = r.id
         WHERE 
             r.id = $1
         GROUP BY 
             r.id;
         `,
-    [runId],
-  );
+      [runId],
+    );
 
-  const runEditions = await pool.query(
-    `
+    const runEditions = await client.query(
+      `
     SELECT 
     e.type,
     e.cover_type as coverType,
@@ -36,14 +40,14 @@ export const runQuery = async (runId: number) => {
         'isbn', b.isbn13,
        'authors', (
           SELECT json_agg(json_build_object('id', p.id, 'name', p.name))
-          FROM books.book_authors ba
-          JOIN books.people p ON ba.author_id = p.id
+          FROM book_authors ba
+          JOIN people p ON ba.author_id = p.id
           WHERE ba.book_id = b.id
         ),
         'illustrators', (
           SELECT json_agg(json_build_object('id', p.id, 'name', p.name))
-          FROM books.book_illustrators bi
-          JOIN books.people p ON bi.illustrator_id = p.id
+          FROM book_illustrators bi
+          JOIN people p ON bi.illustrator_id = p.id
           WHERE bi.book_id = b.id
         ),
         'rating', bs.rating,
@@ -51,28 +55,34 @@ export const runQuery = async (runId: number) => {
         'medianPrice', bs.median_price,
         'collects', (
           SELECT json_agg(json_build_object('title', bc.title, 'issues', bc.issues))
-          FROM books.book_collections bc
+          FROM book_collections bc
           WHERE bc.book_id = b.id
         )
       )
     ) AS list
-  FROM books.run_editions re
-  JOIN books.editions e ON e.id = re.edition_id
-  JOIN books.list_books lb ON lb.list_id = e.list_id
-  JOIN books.books b ON b.id = lb.book_id
-  LEFT JOIN books.book_stats bs ON bs.book_id = b.id
+  FROM run_editions re
+  JOIN editions e ON e.id = re.edition_id
+  JOIN list_books lb ON lb.list_id = e.list_id
+  JOIN books b ON b.id = lb.book_id
+  LEFT JOIN book_stats bs ON bs.book_id = b.id
   WHERE re.run_id = $1
   GROUP BY e.id, e.type;
         `,
-    [runId],
-  );
+      [runId],
+    );
 
-  const response: IRun = {
-    ...runInfo.rows[0],
-    editions: runEditions.rows,
-  };
+    const response: IRun = {
+      ...runInfo.rows[0],
+      editions: runEditions.rows,
+    };
 
-  return response;
+    return response;
+  } catch (error) {
+    console.error("Error in runQuery:", error);
+    throw error;
+  } finally {
+    client.release();
+  }
 };
 
 export const addBookQuery = async (book: IBookInput) => {
@@ -84,7 +94,7 @@ export const addBookQuery = async (book: IBookInput) => {
     // Insert book and get new book ID
     const bookInsert = await client.query(
       `
-        INSERT INTO books.books (title, description, page_count, published_date, latest_republish_date, isbn13)
+        INSERT INTO books (title, description, page_count, published_date, latest_republish_date, isbn13)
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id;
       `,
@@ -105,7 +115,7 @@ export const addBookQuery = async (book: IBookInput) => {
         .map((authorId) => `(${newBookId}, ${authorId})`)
         .join(", ");
       const authorsQueryText = `
-        INSERT INTO books.book_authors (book_id, author_id)
+        INSERT INTO book_authors (book_id, author_id)
         VALUES ${authorsValues};
       `;
       await client.query(authorsQueryText);
@@ -117,7 +127,7 @@ export const addBookQuery = async (book: IBookInput) => {
         .map((illustratorId) => `(${newBookId}, ${illustratorId})`)
         .join(", ");
       const illustratorsQueryText = `
-        INSERT INTO books.book_illustrators (book_id, illustrator_id)
+        INSERT INTO book_illustrators (book_id, illustrator_id)
         VALUES ${illustratorsValues};
       `;
       await client.query(illustratorsQueryText);
@@ -126,7 +136,7 @@ export const addBookQuery = async (book: IBookInput) => {
     // Stats insertion
     await client.query(
       `
-        INSERT INTO books.book_stats (book_id)
+        INSERT INTO book_stats (book_id)
         VALUES ($1)
       `,
       [newBookId],
@@ -138,57 +148,72 @@ export const addBookQuery = async (book: IBookInput) => {
         .map(({ title, issues }) => `(${newBookId}, '${title}', '${issues}')`)
         .join(", ");
       const collectionsQueryText = `
-        INSERT INTO books.book_collections (book_id, title, issues)
+        INSERT INTO book_collections (book_id, title, issues)
         VALUES ${collectionsValues};
       `;
       await client.query(collectionsQueryText);
     }
 
     await client.query("COMMIT");
-    console.log("Transaction completed successfully.");
   } catch (error) {
+    console.error("Error in addBookQuery:", error);
     await client.query("ROLLBACK");
-    console.error("Transaction failed, rolling back:", error);
+    throw error;
   } finally {
     client.release();
   }
 };
 
 export const addPeopleQuery = async (people: string) => {
-  const peopleInsert = await pool.query(
-    `
-    INSERT INTO books.people (name)
+  try {
+    const peopleInsert = await pool.query(
+      `
+    INSERT INTO people (name)
     VALUES ($1)
     RETURNING id;
     `,
-    [people],
-  );
+      [people],
+    );
 
-  return peopleInsert.rows[0].id;
+    return peopleInsert.rows[0].id;
+  } catch (error) {
+    console.error("Error in addPeopleQuery:", error);
+    throw error;
+  }
 };
 
 export const getBooksTableItems = async () => {
-  const books = await pool.query(
-    `
-    SELECT id, title FROM books.books
+  try {
+    const books = await pool.query(
+      `
+    SELECT id, title FROM books
     ORDER BY id DESC
     LIMIT 20;
     `,
-  );
+    );
 
-  return books.rows;
+    return books.rows;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    throw error;
+  }
 };
 
 export const getPeopleTableItems = async () => {
-  const people = await pool.query(
-    `
-    SELECT id, name FROM books.people
+  try {
+    const people = await pool.query(
+      `
+    SELECT id, name FROM people
     ORDER BY id DESC
     LIMIT 20;
   `,
-  );
+    );
 
-  return people.rows;
+    return people.rows;
+  } catch (error) {
+    console.error("Error fetching people:", error);
+    throw error;
+  }
 };
 
 export const addRunQuery = async (run: any) => {
@@ -201,16 +226,16 @@ export const addRunQuery = async (run: any) => {
     for (const edition of run.editions) {
       // create new list
       const newListEntry = await client.query(
-        `INSERT INTO books.lists DEFAULT VALUES
+        `INSERT INTO lists DEFAULT VALUES
          RETURNING id;`,
       );
       const newListId = newListEntry.rows[0].id;
 
       // add books to list
-      const books = edition.books.split(",");
+      const books = edition.split(",");
       for (const book of books) {
         await client.query(
-          `INSERT INTO books.list_books (list_id, book_id)
+          `INSERT INTO list_books (list_id, book_id)
            VALUES ($1, $2);`,
           [newListId, book],
         );
@@ -218,7 +243,7 @@ export const addRunQuery = async (run: any) => {
 
       //  create edition
       const newEditionEntry = await client.query(
-        `INSERT INTO books.editions (list_id, type, cover_type)
+        `INSERT INTO editions (list_id, type, cover_type)
          VALUES ($1, $2, $3);`,
         [newListId, edition.type, edition.coverType],
       );
@@ -228,7 +253,7 @@ export const addRunQuery = async (run: any) => {
 
     // create run
     const newRunEntry = await client.query(
-      `INSERT INTO books.runs (name, description, year, period, event)
+      `INSERT INTO runs (name, description, year, period, event)
        VALUES ($1, $2, $3, $4, $5);`,
       [run.name, run.description, run.year, run.period, run.event],
     );
@@ -237,7 +262,7 @@ export const addRunQuery = async (run: any) => {
     // add editions to run
     for (const editionId of editionIds) {
       await client.query(
-        `INSERT INTO books.run_editions (run_id, edition_id)
+        `INSERT INTO run_editions (run_id, edition_id)
          VALUES ($1, $2);`,
         [newRunId, editionId],
       );
@@ -245,17 +270,17 @@ export const addRunQuery = async (run: any) => {
 
     for (const collect of run.collects) {
       await client.query(
-        `INSERT INTO books.run_collections (run_id, title, issues)
+        `INSERT INTO run_collections (run_id, title, issues)
          VALUES ($1, $2, $3);`,
         [newRunId, collect.title, collect.issues],
       );
     }
 
     await client.query("COMMIT");
-    console.log("Transaction completed successfully.");
   } catch (error) {
+    console.error("Error in addRunQuery:", error);
     await client.query("ROLLBACK");
-    console.error("Transaction failed, rolling back:", error);
+    throw error;
   } finally {
     client.release();
   }
