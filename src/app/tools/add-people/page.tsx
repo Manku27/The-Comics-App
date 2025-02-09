@@ -1,24 +1,13 @@
-import { addBookQuery, addPeopleQuery } from "@/db/queries";
+import PeopleTable from "@/components/PeopleTable";
+import { getPeopleTableItems } from "@/db/queries";
+import AddPeopleForm from "@/forms/AddPeopleForm";
 
-export default function AddBook() {
-  async function addBook(formData: FormData) {
-    "use server";
-    addPeopleQuery(formData.get("name") as string);
-  }
-
+export default async function AddPeople() {
+  const people = await getPeopleTableItems();
   return (
-    <form action={addBook} className="space-y-4">
-      <div className="flex flex-col gap-2 m-10">
-        <input
-          type="text"
-          name="name"
-          className="border p-2 rounded"
-          placeholder="Name"
-        />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          Add People
-        </button>
-      </div>
-    </form>
+    <div className="m-20">
+      <AddPeopleForm />
+      <PeopleTable people={people} />
+    </div>
   );
 }

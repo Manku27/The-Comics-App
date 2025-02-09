@@ -37,3 +37,13 @@ export interface IRun {
     editions: IEdition[];
     collects: ICollect[];
 }
+
+export interface IBookTableItem {
+    id: number;
+    title: string;
+}
+
+export interface IPeopleTableItem {
+    id: number;
+    name: string;
+}

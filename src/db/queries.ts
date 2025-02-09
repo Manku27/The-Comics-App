@@ -166,3 +166,27 @@ export const addPeopleQuery = async (people: string) => {
 
   return peopleInsert.rows[0].id;
 };
+
+export const getBooksTableItems = async () => {
+  const books = await pool.query(
+    `
+    SELECT id, title FROM books.books
+    ORDER BY id DESC
+    LIMIT 20;
+    `,
+  );
+
+  return books.rows;
+};
+
+export const getPeopleTableItems = async () => {
+  const people = await pool.query(
+    `
+    SELECT id, name FROM books.people
+    ORDER BY id DESC
+    LIMIT 20;
+  `,
+  );
+
+  return people.rows;
+};
