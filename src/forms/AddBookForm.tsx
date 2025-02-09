@@ -51,7 +51,6 @@ export default function AddBookForm() {
             name="description"
             className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter book description"
-            required
           />
         </label>
         <label className="flex flex-col">
@@ -89,6 +88,7 @@ export default function AddBookForm() {
             name="isbn"
             className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter ISBN"
+            required
           />
         </label>
         <label className="flex flex-col">
@@ -98,6 +98,7 @@ export default function AddBookForm() {
             name="authors"
             className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter authors (separated by semicolons)"
+            required
           />
         </label>
         <label className="flex flex-col">
@@ -107,6 +108,7 @@ export default function AddBookForm() {
             name="illustrators"
             className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter illustrators (separated by semicolons)"
+            required
           />
         </label>
         <label className="flex flex-col">
@@ -116,6 +118,7 @@ export default function AddBookForm() {
             name="collects"
             className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter collects (title,issues)"
+            required
           />
         </label>
         <button

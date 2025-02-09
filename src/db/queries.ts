@@ -190,3 +190,73 @@ export const getPeopleTableItems = async () => {
 
   return people.rows;
 };
+
+export const addRunQuery = async (run: any) => {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+    const editionIds = [];
+
+    for (const edition of run.editions) {
+      // create new list
+      const newListEntry = await client.query(
+        `INSERT INTO books.lists DEFAULT VALUES
+         RETURNING id;`,
+      );
+      const newListId = newListEntry.rows[0].id;
+
+      // add books to list
+      const books = edition.books.split(",");
+      for (const book of books) {
+        await client.query(
+          `INSERT INTO books.list_books (list_id, book_id)
+           VALUES ($1, $2);`,
+          [newListId, book],
+        );
+      }
+
+      //  create edition
+      const newEditionEntry = await client.query(
+        `INSERT INTO books.editions (list_id, type, cover_type)
+         VALUES ($1, $2, $3);`,
+        [newListId, edition.type, edition.coverType],
+      );
+      const newEditionId = newEditionEntry.rows[0].id;
+      editionIds.push(newEditionId);
+    }
+
+    // create run
+    const newRunEntry = await client.query(
+      `INSERT INTO books.runs (name, description, year, period, event)
+       VALUES ($1, $2, $3, $4, $5);`,
+      [run.name, run.description, run.year, run.period, run.event],
+    );
+    const newRunId = newRunEntry.rows[0].id;
+
+    // add editions to run
+    for (const editionId of editionIds) {
+      await client.query(
+        `INSERT INTO books.run_editions (run_id, edition_id)
+         VALUES ($1, $2);`,
+        [newRunId, editionId],
+      );
+    }
+
+    for (const collect of run.collects) {
+      await client.query(
+        `INSERT INTO books.run_collections (run_id, title, issues)
+         VALUES ($1, $2, $3);`,
+        [newRunId, collect.title, collect.issues],
+      );
+    }
+
+    await client.query("COMMIT");
+    console.log("Transaction completed successfully.");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error("Transaction failed, rolling back:", error);
+  } finally {
+    client.release();
+  }
+};
