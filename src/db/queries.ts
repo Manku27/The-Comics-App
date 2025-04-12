@@ -38,6 +38,7 @@ export const runQuery = async (runId: number) => {
         'published', b.published_date,
         'latestRepublished', b.latest_republish_date,
         'isbn', b.isbn13,
+        'coverImage', b.cover_image,
        'authors', (
           SELECT json_agg(json_build_object('id', p.id, 'name', p.name))
           FROM book_authors ba

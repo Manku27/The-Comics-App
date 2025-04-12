@@ -14,7 +14,7 @@ export const ListItem = ({ listItem }: Props) => {
         <div className={styles.bookNumber}>BOOK #{listItem.id}</div>
         <div className={styles.imageWrapper}>
           <Image
-            src={`/covers/${listItem.id}.webp`}
+            src={listItem.coverImage}
             alt={listItem.title}
             fill
             className={styles.image}

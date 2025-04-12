@@ -12,6 +12,7 @@ export interface IBook {
     collects: ICollect[];
     medianPrice?: number;
     isbn: string;
+    coverImage: string;
 }
 
 interface IPeople {
