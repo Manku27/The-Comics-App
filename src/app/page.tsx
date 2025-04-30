@@ -1,12 +1,15 @@
-import { comicRuns } from "@/models/mockData";
+import { fetchContent } from "@/config/contentful";
+import { prepareRunList } from "@/models/runs";
 import HomeScreen from "@/screens/HomeScreen";
 
 async function getComicRunsForHome() {
-  return comicRuns;
+  const runs = await fetchContent({
+    content_type: "run",
+  });
+  return prepareRunList(runs);
 }
 
 export default async function Home() {
-  const comicRuns = await getComicRunsForHome();
-
-  return <HomeScreen comicRuns={comicRuns} />;
+  const runs = await getComicRunsForHome();
+  return <HomeScreen comicRuns={runs} />;
 }

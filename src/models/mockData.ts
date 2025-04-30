@@ -3,17 +3,18 @@ import type { IHomeListItem } from "./runs";
 export const comicRuns: IHomeListItem[] = [
     {
         rank: 1,
-        title: "Fantastic Four",
-        creators: "Jack Kirby and Stan Lee",
-        runId: "1",
-    },
-    { rank: 2, title: "Sandman", creators: "Neil Gaiman", runId: "2" },
-    {
-        rank: 3,
         title: "Daredevil",
         creators: "Frank Miller and Klaus Janson",
-        runId: "3",
+        runId: "1",
     },
+    {
+        rank: 2,
+        title: "Fantastic Four",
+        creators: "Jack Kirby and Stan Lee",
+        runId: "2",
+    },
+    { rank: 3, title: "Sandman", creators: "Neil Gaiman", runId: "3" },
+  
     { rank: 4, title: "Batman", creators: "Grant Morrison", runId: "4" },
     {
         rank: 5,

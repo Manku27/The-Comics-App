@@ -14,7 +14,7 @@ export const ListItem = ({ listItem }: Props) => {
         <div className={styles.bookNumber}>BOOK #{listItem.id}</div>
         <div className={styles.imageWrapper}>
           <Image
-            src={listItem.coverImage}
+            src={`https:${listItem.coverImage}`}
             alt={listItem.title}
             fill
             className={styles.image}
@@ -28,15 +28,8 @@ export const ListItem = ({ listItem }: Props) => {
         <h2 className={styles.title}>{listItem.title}</h2>
 
         <div className={styles.creators}>
-          <span>
-            BY: {listItem.authors.map((author) => author.name).join(", ")}
-          </span>
-          <span>
-            ART:{" "}
-            {listItem.illustrators
-              .map((illustrator) => illustrator.name)
-              .join(", ")}
-          </span>
+          <span>BY: {listItem.authors.join(", ")}</span>
+          <span>ART: {listItem.illustrators.join(", ")}</span>
         </div>
 
         <div className={styles.rating}>
@@ -51,10 +44,8 @@ export const ListItem = ({ listItem }: Props) => {
           <div className={styles.collects}>
             <p>COLLECTS:</p>
             <ul>
-              {listItem.collects.map((item, index) => (
-                <li key={index}>
-                  {item.title} #{item.issues}
-                </li>
+              {listItem.collects.map((item) => (
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
@@ -68,9 +59,11 @@ export const ListItem = ({ listItem }: Props) => {
           <div>
             <span>PUBLISHED:</span> {listItem.published}
           </div>
-          <div>
-            <span>REPUBLISHED:</span> {listItem.latestRepublished}
-          </div>
+          {listItem.latestRepublished ? (
+            <div>
+              <span>REPUBLISHED:</span> {listItem.latestRepublished}
+            </div>
+          ) : null}
           <div>
             <span>PAGES:</span> {listItem.pageCount}
           </div>

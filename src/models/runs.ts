@@ -17,3 +17,48 @@ export interface IRunList {
     name: string;
     list: IRunListItem[];
 }
+
+export const prepareRunList = (raw:any) => {
+
+    const formatted = raw.map((item:any) => {
+        return {
+            title :item?.fields?.title,
+            creators : item?.fields?.author?.fields?.name, 
+            url :item?.fields?.slug
+        }
+    })
+
+    return formatted
+}
+
+export const preparedRun = (run : any) => {
+    return {
+        name : `${run?.fields?.title} by ${run?.fields?.author?.fields?.name}`,
+        collects : [],
+        editions : run?.fields?.editions?.map((edition:any) => {
+            return {
+                type : edition?.fields?.type,
+            covertype : edition?.fields?.coverType,
+            list : edition?.fields?.books?.map((book:any) => { 
+                return {
+                    id :1,
+                    rating : 0,
+                    noOfRatings : 0,
+                    published :'2025-04-30',
+                    coverImage : book?.fields?.cover?.fields?.file?.url,
+                    title : book?.fields?.title,
+                    pageCount : book?.fields?.pageCount,
+                    isbn : book?.fields?.isbn,
+                    authors : book?.fields?.author?.map((author:any) => {
+                        return author?.fields?.name
+                    }),
+                    illustrators : book?.fields?.artist?.map((author:any) => {
+                        return author?.fields?.name
+                    }),
+                    collects : book?.fields?.issues,
+                }
+            }),
+            }
+        })
+    }
+}

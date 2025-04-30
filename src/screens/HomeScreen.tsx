@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./HomeScreen.module.css";
-import { IHomeListItem } from "@/models/runs";
 
-const HomeScreen = ({ comicRuns }: { comicRuns: IHomeListItem[] }) => {
+const HomeScreen = ({ comicRuns }: { comicRuns: any[] }) => {
   return (
     <main className={styles.container}>
       <div className={styles.header}>
@@ -20,8 +19,8 @@ const HomeScreen = ({ comicRuns }: { comicRuns: IHomeListItem[] }) => {
       <div className={styles.comicGrid}>
         {comicRuns.map((run, index) => (
           <Link
-            key={run.runId}
-            href={`/runs/${run.runId}`}
+            key={run.url}
+            href={`/runs/${run.url}`}
             className={styles.comicCard}
           >
             <span className={styles.ranking}>#{index + 1}</span>

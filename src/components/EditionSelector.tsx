@@ -14,7 +14,7 @@ export const EditionSelector = ({ editions }: EditionSelectorProps) => {
   return (
     <>
       <div className={styles.buttonContainer}>
-        {editions.map((edition: IEdition, index: number) => (
+        {editions.map((edition, index) => (
           <button
             key={index}
             onClick={() => setSelectedEditionIndex(index)}
@@ -22,15 +22,14 @@ export const EditionSelector = ({ editions }: EditionSelectorProps) => {
               selectedEditionIndex === index ? styles.selected : ""
             }`}
           >
-            {edition.type.toUpperCase()}{" "}
-            {edition.covertype === "Hardcover" ? "(HARD)" : null}
+            {edition.type.toUpperCase()} {edition.covertype}
           </button>
         ))}
       </div>
 
       <div className={styles.listContainer}>
         <div key={selectedEditionIndex} className={styles.editionContent}>
-          <List items={editions[selectedEditionIndex].list as IBook[]} />
+          <List items={editions[selectedEditionIndex].list as any[]} />
         </div>
       </div>
     </>

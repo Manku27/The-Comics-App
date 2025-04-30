@@ -5,13 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "i.gr-assets.com",
-        pathname: "/images/**",
-      },
-      {
-        protocol: "https",
-        hostname: "i.ibb.co",
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
       },
     ],
   },

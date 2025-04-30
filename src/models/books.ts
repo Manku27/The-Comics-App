@@ -9,7 +9,7 @@ export interface IBook {
     illustrators: IPeople[];
     rating: number;
     noOfRatings: number;
-    collects: ICollect[];
+    collects: string[];
     medianPrice?: number;
     isbn: string;
     coverImage: string;
