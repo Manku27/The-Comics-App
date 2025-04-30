@@ -6,7 +6,7 @@ async function getRunBySlug(slug: any) {
   const run = await fetchContent({
     content_type: "run",
     "fields.slug": slug,
-    include: 2,
+    include: 3,
   });
   return preparedRun(run?.[0]);
 }
