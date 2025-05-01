@@ -22,7 +22,9 @@ export const EditionSelector = ({ editions }: EditionSelectorProps) => {
               selectedEditionIndex === index ? styles.selected : ""
             }`}
           >
-            {edition.type.toUpperCase()} {edition.covertype}
+            {edition.type.toUpperCase()}
+            <br />
+            <div style={{ fontSize: "0.8em" }}>({edition.covertype})</div>
           </button>
         ))}
       </div>
