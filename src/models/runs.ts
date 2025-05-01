@@ -32,7 +32,6 @@ export const prepareRunList = (raw:any) => {
 }
 
 export const preparedRun = (run : any) => {
-    console.log(run.fields)
     return {
         name : `${run?.fields?.title} by ${run?.fields?.author?.fields?.name}`,
         collects : run?.fields?.collects,
