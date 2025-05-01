@@ -32,19 +32,20 @@ export const prepareRunList = (raw:any) => {
 }
 
 export const preparedRun = (run : any) => {
+    console.log(run.fields)
     return {
         name : `${run?.fields?.title} by ${run?.fields?.author?.fields?.name}`,
-        collects : [],
+        collects : run?.fields?.collects,
         editions : run?.fields?.editions?.map((edition:any) => {
             return {
                 type : edition?.fields?.type,
             covertype : edition?.fields?.coverType,
-            list : edition?.fields?.books?.map((book:any) => { 
+            list : edition?.fields?.books?.map((book:any,index:any) => { 
                 return {
-                    id :1,
+                    id :index + 1,
                     rating : 0,
                     noOfRatings : 0,
-                    published :'2025-04-30',
+                    published : book?.fields?.publicationYear,
                     coverImage : book?.fields?.cover?.fields?.file?.url,
                     title : book?.fields?.title,
                     pageCount : book?.fields?.pageCount,

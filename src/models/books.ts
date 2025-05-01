@@ -36,7 +36,7 @@ export interface IRun {
     year?: number;
     description?: string;
     editions: IEdition[];
-    collects: ICollect[];
+    collects: string[];
 }
 
 export interface IBookTableItem {

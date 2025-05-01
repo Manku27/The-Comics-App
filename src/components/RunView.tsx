@@ -23,10 +23,10 @@ export const RunView = ({ run }: RunViewProps) => {
                 <span className={styles.collectsList}>
                   {run.collects.map((collect) => (
                     <span
-                      key={collect.title + collect.issues}
+                      key={collect}
                       className={`${styles.collectItem} ${styles.collectItemStyled}`}
                     >
-                      {collect.title} #{collect.issues}
+                      {collect}
                     </span>
                   ))}
                 </span>
